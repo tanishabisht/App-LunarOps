@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:lunarops/Authentication/signup_screen.dart';
+import 'package:lunarops/Screens/loggedin_screen.dart';
+
+import 'Screens/signup_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,9 +13,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Lunar Ops',
-      home: SignupOptionScreen(),
+      home: const SignupOptionScreen(),
+      routes: {
+        LoggedInScreen.routeName: (context) => LoggedInScreen(),
+      },
     );
   }
 }
