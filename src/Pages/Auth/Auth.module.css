@@ -1,0 +1,90 @@
+.Container::before {
+    content: " ";
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-image: url(/src/Images/bg_main.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+}
+
+.Container > * {
+    position: relative;
+}
+
+.About {
+    position: relative;
+    width: 65%;
+    float: left;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+    padding-right: 3em;
+    text-shadow: 1px 1px 1px #000, 1px 1px 9px #000;
+}
+
+.Logo {
+    background-image: url(/src/Images/logo.png);
+    width: 7em;
+    height: 7em;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    flex: none;
+    margin-right: 20px;
+}
+
+.Heading {    
+    font-family: michroma,sans-serif;
+    font-size: 2.1em;
+    color: #fff;
+    line-height: 1;
+    flex: none;
+    margin-bottom: 6px;
+}
+
+.SubHeading1, .SubHeading2 {
+    color: #fff;
+    font-size: 1em;
+    margin-top: 1.1em;
+}
+.SubHeading2 {
+    color: #5e92a6;
+    margin-top: 0;
+}
+
+
+.Active {
+    float: left;
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    width: 440px;
+    color: #aaa;
+    background: #fffffff6;
+    background-size: cover;
+    background-position: center bottom;
+    background-image: url(/src/Images/bg_auth.jpg);
+    background-repeat: no-repeat;
+    padding: 5rem 3rem;
+}
+
+
+.Active input {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 6px;
+}
+.Active input:focus, .Btn:focus {
+    outline: none;
+}
+
+.Btn {
+    padding: 5px 15px;
+    margin-top: 1rem;
+}

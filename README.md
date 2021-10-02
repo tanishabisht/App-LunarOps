@@ -23,6 +23,10 @@ Application that can immediately and seamlessly integrate console log informatio
   - [x] tagging other log enties in the network
   - [x] COMMAND to view a particular log
 
+## Novelty
+- SECURITY
+- 
+
 
 ## Team Mates
 `Tanisha` `Prakhar` `Arnav`
