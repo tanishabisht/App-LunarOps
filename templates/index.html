@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Flask-Firestore-CRUD</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.html')}}">
+{% endblock %}
+
+{% block body %}
+    <h3>Create</h3>
+    <form action="/message-add" method="POST">
+        <label>Network : </label>
+        <input type="text" name="network" id="network">
+        <br>
+        <br>
+        <label>Log to Input in : </label>
+        <input type="text" name="loglist" id="loglist">
+        <br>
+        <br>
+        <label>User : </label>
+        <input type="text" name="user" id="user">
+        <br>
+        <br>
+        <label>Log Type / Message : </label>
+        <input type="text" name="logtype" id="logtype" style="margin-right: 0px; padding-right: 0px;">
+        <input type="text" name="message" id="message" style="margin-left: 0px; padding-left: 0px;">
+        <br>
+        <br>
+        <label>Is Official : </label>
+        <input type="text" name="isofficial" id="isofficial">
+        <br>
+        <br>
+        <input type="submit" value="Create">
+    </form>
+    {% if res == 1 %}
+        <label>"Entry Created"</label>
+    {% endif %}
+
+    <h3>Sort Urgent</h3>
+    <form action="/sort-urgent" method="post">
+        <input type="submit" value="Sort Urgent">
+    </form>
+    {% if qual1 == 1 %}
+        <label>"Collected {{logtype}}"</label>
+    {% endif %}
+
+    <h3>Sort Request</h3>
+    <form action="/sort-request" method="post">
+        <input type="submit" value="Sort Request">
+    </form>
+    {% if qual2 == 1 %}
+        <label>"Collected {{logtype}}"</label>
+    {% endif %}
+
+    <h3>Sort Official</h3>
+    <form action="/sort-official" method="post">
+        <input type="submit" value="Sort Official">
+    </form>
+    {% if qual3 == 1 %}
+        <label>"Collected {{logtype}}"</label>
+    {% endif %}
+
+    <h3>Sort Family</h3>
+    <form action="/sort-family" method="post">
+        <input type="submit" value="Sort Family">
+    </form>
+    {% if qual4 == 1 %}
+        <label>"Collected {{logtype}}"</label>
+    {% endif %}
+
+    <h3>Sort Command</h3>
+    <form action="/sort-command" method="post">
+        <input type="submit" value="Sort Command">
+    </form>
+    {% if qual5 == 1 %}
+        <label>"Collected {{logtype}}"</label>
+    {% endif %}
+{% endblock %}
