@@ -1,15 +1,22 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Route } from 'react-router-dom'
 import classes from './Navbar.module.css'
-import { useLocation } from 'react-router-dom'
-import {db} from '../../Config/firebase'
+import { useLocation, useHistory } from 'react-router-dom'
+import { auth } from '../../Config/firebase'
+import { signOut } from "firebase/auth";
 
 
 const Navbar = () => {
     const location = useLocation()
+    const history = useHistory()
     const isMenu = location.pathname==='/networks' ? false : true
 
     const onSignOut = () => {
-        db.auth().signOut()
+        signOut(auth).then(() => {
+            history.push('/login')
+            console.log('Successful sign out')
+        }).catch(() => {
+            console.log('Couldnt sign out')
+        });
     }
     
     return (
@@ -23,7 +30,7 @@ const Navbar = () => {
             </div>
             <div>
                 <button className={classes.Username}>TANISHA BISHT</button>
-                <button className={classes.Item} onChange={onSignOut}>Logout</button>
+                <form><button className={classes.Item} onClick={onSignOut}>Logout</button></form>                
             </div>
         </div>
     );

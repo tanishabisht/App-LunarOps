@@ -1,24 +1,29 @@
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
-import { AllNetworks, Auth, SingleNetwork, NetworkLogs, PicLogs, TopicLogs, MyLogs } from './Pages'
+import { Login, SignUp, AllNetworks, NetworkLogs, PicLogs, TopicLogs, MyLogs } from './Pages'
 import { Navbar } from './Components'
+import { AuthProvider } from './Config/auth'
+import PrivateRoute from './Container/PrivateRoute'
 import './app.css'
 
 function App() {
   return (
-    <HashRouter>
-      <Navbar/>
-      <div className='bg bg_body container-fluid'>
-        <Switch>
-          <Redirect from='/' to='/home' exact/>
-          <Route exact path='/auth' component={Auth} />
-          <Route exact path='/networks' component={AllNetworks} />
-          <Route exact path='/network_name/network_logs' component={NetworkLogs} />
-          <Route exact path='/network_name/picture_logs' component={PicLogs} />
-          <Route exact path='/network_name/topic_logs' component={TopicLogs} />
-          <Route exact path='/network_name/my_logs' component={MyLogs} />
-        </Switch>
-      </div>
-    </HashRouter>
+    <AuthProvider>
+      <HashRouter>
+        <Navbar/>
+        <div className='container_main'>
+          <Switch>
+            <Redirect from='/' to='/networks' exact/>
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/signup' component={SignUp} />
+            <PrivateRoute exact path='/networks' component={AllNetworks} />
+            <PrivateRoute exact path='/network_name/network_logs' component={NetworkLogs} />
+            <PrivateRoute exact path='/network_name/picture_logs' component={PicLogs} />
+            <PrivateRoute exact path='/network_name/topic_logs' component={TopicLogs} />
+            <PrivateRoute exact path='/network_name/my_logs' component={MyLogs} />
+          </Switch>
+        </div>
+      </HashRouter>
+    </AuthProvider>
   );
 }
 

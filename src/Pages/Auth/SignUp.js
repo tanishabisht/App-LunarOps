@@ -1,52 +1,42 @@
-import classes from './Auth.module.css'
+// import classes from './Auth.module.css'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useContext } from "react";
+import { Redirect } from "react-router";
+import { auth } from "../../Config/firebase";
+import { AuthContext } from "../../Config/auth";
 
+const SignUp = () => {
 
-// const SignUp = () => {
-//     return (
-//         <div className={classes.Container}>
-//             SignUp PAGE
-//         </div>
-//     );
-// }
-
-// export default SignUp;
-
-
-
-import React, { useCallback } from "react";
-import { withRouter } from "react-router";
-import {db} from "../../Config/firebase";
-
-const SignUp = ({ history }) => {
-  const handleSignUp = useCallback(async event => {
-    event.preventDefault();
-    const { email, password } = event.target.elements;
-    try {
-      await db
-        .auth()
-        .createUserWithEmailAndPassword(email.value, password.value);
-      history.push("/");
-    } catch (error) {
-      alert(error);
+    const handleSignUp = () => {
+        createUserWithEmailAndPassword(auth, 'user1@gmail.com', 'Welcome1')
+        .then((userCredential) => {
+            const user = userCredential.user;
+            console.log(user)
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+        });
     }
-  }, [history]);
 
-  return (
-    <div>
-      <h1>Sign up</h1>
-      <form onSubmit={handleSignUp}>
-        <label>
-          Email
-          <input name="email" type="email" placeholder="Email" />
-        </label>
-        <label>
-          Password
-          <input name="password" type="password" placeholder="Password" />
-        </label>
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
-  );
+
+    const { currentUser } = useContext(AuthContext);
+
+    if (currentUser) {
+        return <Redirect to="/" />;
+    }
+
+    return (
+        <div>
+            <h1>Sign Up</h1>
+            <form>
+                <label>Email<input name="email" type="email" placeholder="Email" /></label>
+                <label>Password<input name="password" type="password" placeholder="Password" /></label>
+                <button onClick={handleSignUp}>Sign Up</button>
+            </form>
+        </div>
+    );
 };
 
-export default withRouter(SignUp);
+export default SignUp;
