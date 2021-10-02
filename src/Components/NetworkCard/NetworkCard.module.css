@@ -1,0 +1,25 @@
+.Container {
+    margin: 2rem;
+    padding: 10px;
+    border: 1px solid #333;
+    color: #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Container:hover {
+    border: 1px solid green;
+    cursor: pointer;
+}
+
+.Container p {
+    margin: 0px;
+}
+
+.Container span {
+    background-color: #333;
+    padding: 5px 10px;
+}
+.Container:hover span {
+    background-color: green;
+}

@@ -1,0 +1,20 @@
+.Container {
+    padding: 20px;
+    color: #ddd;
+    display: flex;
+    justify-content: space-between;
+    background-color: #111;
+    border-bottom: 1px solid #333;
+}
+.Container:hover {
+    background-color: #222;
+    cursor: pointer;
+}
+
+.Container > * {
+    margin: 10px;
+}
+.Date {
+    font-weight: 700;
+    color: #aaa;
+}

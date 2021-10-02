@@ -1,0 +1,32 @@
+.Container {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Stick No Bills', sans-serif;
+    font-size: 1.2rem;
+}
+
+.Item {
+    margin-right: 1rem;
+    background-color: #8e8e8e;
+    padding: 5px 15px;
+    color: #ddd;
+    border: 2px solid #333;
+}
+.Item:hover {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+.Active {
+    background-color: #222;
+}
+
+.Username {
+    background: transparent;
+    color: #eee;
+    border: 0px;
+    margin-right: 1rem;
+}
+.Username:hover {
+    cursor: pointer;
+}

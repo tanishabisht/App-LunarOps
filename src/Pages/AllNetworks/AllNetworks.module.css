@@ -1,0 +1,49 @@
+.Container {
+    background-color: #111;
+    border: 3px solid #333;
+    height: 100%;
+    padding: 2rem;
+    border-radius: 2rem;
+    overflow-y: scroll;
+}
+
+.Input {
+    width: 100%;
+    border: 2px solid #333;
+    border-radius: 1rem;
+    padding: 5px 20px;
+    background-color: transparent;
+    color: #aaa;
+}
+.Input:focus, .AddInput:focus {
+    outline: none;
+    border: 2px solid #aaa;
+}
+
+
+.AddInput {
+    width: 90%;
+    border: 2px solid #333;
+    border-radius: 1rem 0px 0px 1rem;
+    padding: 5px 20px;
+    background-color: transparent;
+    color: #aaa;
+}
+.AddBtn {
+    width: 10%;
+    border: 2px solid #333;
+    border-radius: 0px 1rem 1rem 0px;
+    padding: 5px 20px;
+    background-color: #333;
+    color: #aaa;
+    margin-bottom: 10px;
+}
+.AddBtn:hover {
+    cursor: pointer;
+}
+.AddBtn:active {
+    background-color: #111;
+}
+.AddBtn:focus {
+    outline: none;
+}
