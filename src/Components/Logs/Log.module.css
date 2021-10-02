@@ -11,10 +11,18 @@
     cursor: pointer;
 }
 
+.PermContainer, .PermContainer:hover {
+    background-color: #444;
+    cursor: context-menu;
+}
 .Container > * {
     margin: 10px;
 }
 .Date {
     font-weight: 700;
     color: #aaa;
+    flex: 1;
+}
+.Text {
+    flex: 5;
 }

@@ -1,14 +1,18 @@
 import classes from './Log.module.css'
 
 
-const Log = ({date, mssg, author}) => {
+const Log = ({info, updateLog, user}) => {
+    const { Message, SendBy, MessageType, Timestamp } = info
+    var permanent = false
+    if(MessageType==='/OFFICIAL') permanent = true 
     return (
-        <div className={classes.Container}>
+        <div className={`${classes.Container} ${permanent && classes.PermContainer}`}>
             <div className={classes.Date}>
-                <p>{date}</p>
-                <p>{author}</p>                
+                <p>{Timestamp}</p>
+                <p>{SendBy}</p>
+                {MessageType==='/LOG' && SendBy===user && <span onClick={() => updateLog(Message, MessageType, Timestamp)}><i class="fas fa-edit"></i></span>}
             </div>
-            <p className={classes.Text}>{mssg}</p>
+            <p className={classes.Text}>{Message}</p>
         </div>
     );
 }

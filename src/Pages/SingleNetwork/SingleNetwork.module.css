@@ -26,7 +26,7 @@
 
 .Input {
     border-top: 0px;
-    padding: 5px 20px;
+    padding: 5px 5px;
     background-color: transparent;
     color: #aaa;
     border: 2px solid #333;
@@ -53,6 +53,11 @@
     margin-bottom: 2rem;
 }
 
+.OutputContainer p {
+    height: 65%;
+    overflow-y: scroll;
+}
+
 .MembersContainer {
     margin-bottom: 2rem;
     height: 50%;
@@ -65,4 +70,24 @@
 .MemberList {
     height: 75%;
     overflow-y: scroll;
+}
+
+
+
+
+.Btn {
+    border-top: 0px;
+    padding: 5px 10px;
+    text-align: center;
+    background-color: transparent;
+    color: #aaa;
+    background-color: #333;
+    border: 2px solid #333;
+}
+.Btn:focus {
+    outline: none;
+}
+.Btn:active {
+    color: #333;
+    background-color: #aaa;
 }

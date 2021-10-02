@@ -16,6 +16,7 @@ function App() {
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp} />
             <PrivateRoute exact path='/networks' component={AllNetworks} />
+            <Redirect from='/meh' to='/network_name/network_logs' exact/>
             <PrivateRoute exact path='/network_name/network_logs' component={NetworkLogs} />
             <PrivateRoute exact path='/network_name/picture_logs' component={PicLogs} />
             <PrivateRoute exact path='/network_name/topic_logs' component={TopicLogs} />
