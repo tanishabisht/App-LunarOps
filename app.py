@@ -169,9 +169,9 @@ def message_add():
 @app.route('/web-out-log/<string:net>/<string:uid>', methods=['GET','POST'])
 def web_out_log(net,uid):
     if request.method == 'POST':
-        netw = net.split('%')
+        netw = net.split('%20')
         network = ' '.join(netw)
-        uid_ = uid.split('%')
+        uid_ = uid.split('%20')
         date_time_user_id = ' '.join(uid_)
         try:
             start = time.perf_counter()
@@ -201,9 +201,9 @@ def web_out_log(net,uid):
 @app.route('/app-img-log/<string:network>/<string:uid>', methods=['GET','POST'])
 def app_img_log(net,uid):
     if request.method == 'POST':
-        netw = net.split('%')
+        netw = net.split('%20')
         network = ' '.join(netw)
-        uid_ = uid.split('%')
+        uid_ = uid.split('%20')
         date_time_user_id = ' '.join(uid_)
         try:
             start = time.perf_counter()
