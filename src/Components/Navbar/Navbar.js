@@ -1,7 +1,7 @@
-import { NavLink, Route } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import classes from './Navbar.module.css'
 import { useLocation, useHistory } from 'react-router-dom'
-import { auth } from '../../Config/firebase'
+import { auth, getUser } from '../../Config/firebase'
 import { signOut } from "firebase/auth";
 
 
@@ -21,17 +21,26 @@ const Navbar = () => {
     
     return (
         <div className={classes.Container}>
+
+            <div className={classes.About}>
+                <div className={classes.Logo}></div>
+                <div className={classes.Heading}>LUNAR OPS</div>
+            </div>
+
             <div style={isMenu===true ? null : {visibility:'hidden'}}>
                 <NavLink activeClassName={classes.Active} className={classes.Item} to="/networks">SEE ALL NETWORKS</NavLink>
                 <NavLink activeClassName={classes.Active} className={classes.Item} to="/network_name/my_logs">MY LOGS</NavLink>
-                <NavLink activeClassName={classes.Active} className={classes.Item} to="/network_name/network_logs">NETWORK LOGS</NavLink>
-                {/* <NavLink activeClassName={classes.Active} className={classes.Item} to="/network_name/topic_logs">TOPIC LOGS</NavLink>
-                <NavLink activeClassName={classes.Active} className={classes.Item} to="/network_name/picture_logs">PICTURE LOGS</NavLink> */}
+                <NavLink activeClassName={classes.Active} className={classes.Item} to="/network_name/all_logs">ALL LOGS</NavLink>
+                <NavLink activeClassName={classes.Active} className={classes.Item} to="/network_name/my_official_logs">MY OFF LOGS</NavLink>
+                <NavLink activeClassName={classes.Active} className={classes.Item} to="/network_name/official_logs">OFF LOGS</NavLink>
+                <NavLink activeClassName={classes.Active} className={classes.Item} to="/network_name/picture_logs">PICTURE LOGS</NavLink>
             </div>
-            <div>
-                <button className={classes.Username}>TANISHA BISHT</button>
-                <form><button className={classes.Item} onClick={onSignOut}>Logout</button></form>                
+
+            <div style={{display:'flex', alignItems:'start'}}>
+                <p className={classes.Username}>{getUser() || 'Username'}</p>
+                <form><button className={classes.LogoutBtn} onClick={onSignOut}>Logout</button></form>                
             </div>
+
         </div>
     );
 }

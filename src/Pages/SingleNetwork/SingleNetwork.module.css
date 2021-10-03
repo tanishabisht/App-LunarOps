@@ -91,3 +91,48 @@
     color: #333;
     background-color: #aaa;
 }
+
+
+
+
+
+/* IMAGE LOGS */
+.CenterContainer {
+    width: 100%;
+}
+
+.PhotoGallery {
+    height: 100%;
+    overflow-y: auto;
+    margin-left: 1rem;
+    width: 130px;
+    float: right;
+}
+
+
+.PhotoMain {
+    height: 100%;
+    overflow: hidden;
+}
+/* .imageBlock {
+    height: 100%;
+    position: relative;
+} */
+.ImageContainer {
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    height: 100%;
+}
+.ImageContainer img {    
+    width: 100%;
+    height: 95%;
+    max-width: 100%;
+}
+.UserInfo {
+    display: flex;
+    justify-content: space-between;
+    color: green;
+}

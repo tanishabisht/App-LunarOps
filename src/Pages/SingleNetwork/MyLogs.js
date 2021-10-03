@@ -78,11 +78,13 @@ const MyLogs = () => {
         setIsUpdate(false)
         const docData = {
             Message: mssg,
-            MessageType: + type
+            MessageType: type
         }
         const docRef = doc(db, "Networks", "Test Network", "Main Logs", `${date}_${name}`);
         await setDoc(docRef, docData, {merge:true});
     }
+    const onTypeChange = e => setType(e.target.value)
+    const onMssgChange = e => setMssg(e.target.value)
 
 
 
@@ -93,8 +95,8 @@ const MyLogs = () => {
                 <div className={classes.LogsContainer}>
                     {myLogs.map(e => <MyLog info={e} updateLog={updateLog} />)}
                 </div>
-                <input type="text" name="type" className={classes.Input} style={{width:'10%'}} placeholder='Type' />
-                <input type="text" name="text" className={classes.Input} style={{width:'80%'}} placeholder='Enter your log' />
+                <input value={type} onChange={onTypeChange} type="text" name="type" className={classes.Input} style={{width:'10%'}} placeholder='Type' />
+                <input value={mssg} onChange={onMssgChange} type="text" name="text" className={classes.Input} style={{width:'80%'}} placeholder='Enter your log' />
                 {isUpdate && <button className={classes.Btn} style={{width:'10%'}} onClick={updateLogHandler}>UPDATE</button>}
                 {!isUpdate && <button className={classes.Btn} style={{width:'10%'}} onClick={addLog}>ADD</button>}
             </div>

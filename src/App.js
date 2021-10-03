@@ -1,5 +1,5 @@
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom'
-import { Login, SignUp, AllNetworks, NetworkLogs, PicLogs, TopicLogs, MyLogs } from './Pages'
+import { Login, SignUp, AllNetworks, MyLogs, NetworkLogs, MyOfficialLogs, OfficialLogs, PicLogs } from './Pages'
 import { Navbar } from './Components'
 import { AuthProvider } from './Config/auth'
 import PrivateRoute from './Container/PrivateRoute'
@@ -16,11 +16,14 @@ function App() {
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp} />
             <PrivateRoute exact path='/networks' component={AllNetworks} />
-            <Redirect from='/meh' to='/network_name/network_logs' exact/>
-            <PrivateRoute exact path='/network_name/network_logs' component={NetworkLogs} />
-            <PrivateRoute exact path='/network_name/picture_logs' component={PicLogs} />
-            <PrivateRoute exact path='/network_name/topic_logs' component={TopicLogs} />
+
+            <Redirect from='/meh' to='/network_name/all_logs' exact/>
             <PrivateRoute exact path='/network_name/my_logs' component={MyLogs} />
+            <PrivateRoute exact path='/network_name/all_logs' component={NetworkLogs} />
+            <PrivateRoute exact path='/network_name/my_official_logs' component={MyOfficialLogs} />
+            <PrivateRoute exact path='/network_name/official_logs' component={OfficialLogs} />
+            <PrivateRoute exact path='/network_name/picture_logs' component={PicLogs} />
+            
           </Switch>
         </div>
       </HashRouter>

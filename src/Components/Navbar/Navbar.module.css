@@ -6,11 +6,12 @@
 }
 
 .Item {
-    margin-right: 1rem;
+    margin: 5px 10px;
     background-color: #8e8e8e;
-    padding: 5px 15px;
+    padding: 1px 10px;
     color: #ddd;
     border: 2px solid #333;
+    font-size: 1rem;
 }
 .Item:hover {
     cursor: pointer;
@@ -27,6 +28,38 @@
     border: 0px;
     margin-right: 1rem;
 }
-.Username:hover {
+.LogoutBtn {
+    background-color: transparent;
+    color: green;
+    border: 0px;
+}
+.LogoutBtn:hover {
     cursor: pointer;
+}
+.LogoutBtn:focus {
+    outline: none;
+}
+
+
+
+.About {
+    display: flex;
+    align-items: center;
+}
+
+.Logo {
+    background-image: url(/src/Images/logo.png);
+    width: 5rem;
+    height: 5rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 1rem;
+}
+.Heading {    
+    font-family: michroma,sans-serif;
+    font-size: 2.1em;
+    color: #fff;
+    line-height: 1;
+    flex: none;
+    margin-bottom: 6px;
 }
