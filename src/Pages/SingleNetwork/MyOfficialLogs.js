@@ -4,9 +4,13 @@ import classes from './SingleNetwork.module.css'
 import { onSnapshot, collection } from 'firebase/firestore'
 import { onAuthStateChanged } from "firebase/auth"
 import { db, auth } from '../../Config/firebase'
+import { useLocation } from 'react-router-dom'
 
 
 const MyOfficialLogs = () => {
+
+    const location = useLocation()
+    const networkName = location.pathname.split('/')[1]
 
     const [myOffLogs, setMyOffLogs] = useState([])
     const [name, setName] = useState([])
@@ -24,7 +28,7 @@ const MyOfficialLogs = () => {
     }
     const getRealtimeData = () => {
         console.log('offLogsVar', 'skjhdfksjdfhksjdfh')
-        const unsub = onSnapshot(collection(db, 'Networks', "Test Network", 'Main Logs'), (snap) => {
+        const unsub = onSnapshot(collection(db, 'Networks', networkName, 'Main Logs'), (snap) => {
             const allLogsVar = snap.docs.map(doc => ({id: doc.id, ...doc.data()}))
             const offLogsVar = allLogsVar.filter(log => ((log.MessageType==='/OFFICIAL') && (log.SendBy===name)))
             setMyOffLogs(offLogsVar)

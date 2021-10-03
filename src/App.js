@@ -17,12 +17,12 @@ function App() {
             <Route exact path='/signup' component={SignUp} />
             <PrivateRoute exact path='/networks' component={AllNetworks} />
 
-            <Redirect from='/meh' to='/network_name/all_logs' exact/>
-            <PrivateRoute exact path='/network_name/my_logs' component={MyLogs} />
-            <PrivateRoute exact path='/network_name/all_logs' component={NetworkLogs} />
-            <PrivateRoute exact path='/network_name/my_official_logs' component={MyOfficialLogs} />
-            <PrivateRoute exact path='/network_name/official_logs' component={OfficialLogs} />
-            <PrivateRoute exact path='/network_name/picture_logs' component={PicLogs} />
+            <Redirect from='/meh' to='/:network_name/all_logs' exact/>
+            <PrivateRoute exact path='/:network_name/my_logs' component={MyLogs} />
+            <PrivateRoute exact path='/:network_name/all_logs' component={NetworkLogs} />
+            <PrivateRoute exact path='/:network_name/my_official_logs' component={MyOfficialLogs} />
+            <PrivateRoute exact path='/:network_name/official_logs' component={OfficialLogs} />
+            <PrivateRoute exact path='/:network_name/picture_logs' component={PicLogs} />
             
           </Switch>
         </div>

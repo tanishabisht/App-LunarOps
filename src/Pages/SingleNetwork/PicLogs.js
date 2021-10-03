@@ -3,19 +3,15 @@ import { ImgLog } from '../../Components'
 import classes from './SingleNetwork.module.css'
 import { onSnapshot, collection } from 'firebase/firestore'
 import { db } from '../../Config/firebase'
+import { useLocation } from 'react-router-dom'
 
 
 const PicLogs = () => {
 
-    // const imgs = [
-    //     {Message: "https://media.wired.com/photos/5e961efdca6a5100098746f8/master/w_2560%2Cc_limit/space-human-body-backchhannel.jpg", MessageType: "/IMAGES", SendBy: "user2", Timestamp: "03-10-2021_05:30:54"},
-    //     {Message: "https://keycdnmediado.apolloinrealtime.org/A11/images/NASA_photos/AS11-36-5369HR.jpg", MessageType: "/IMAGES", SendBy: "user2", Timestamp: "03-10-2021_05:30:55"},
-    //     {Message: "https://keycdnmediado.apolloinrealtime.org/A11/images/NASA_photos/AS11-36-5382HR.jpg", MessageType: "/IMAGES", SendBy: "user2", Timestamp: "03-10-2021_05:30:56"},
-    //     {Message: "https://media.wired.com/photos/5e961efdca6a5100098746f8/master/w_2560%2Cc_limit/space-human-body-backchhannel.jpg", MessageType: "/IMAGES", SendBy: "user2", Timestamp: "03-10-2021_05:30:57"},
-    //     {Message: "https://media.wired.com/photos/5e961efdca6a5100098746f8/master/w_2560%2Cc_limit/space-human-body-backchhannel.jpg", MessageType: "/IMAGES", SendBy: "user2", Timestamp: "03-10-2021_05:30:58"},
-    //     {Message: "https://media.wired.com/photos/5e961efdca6a5100098746f8/master/w_2560%2Cc_limit/space-human-body-backchhannel.jpg", MessageType: "/IMAGES", SendBy: "user2", Timestamp: "03-10-2021_05:30:59"},
-    //     {Message: "https://media.wired.com/photos/5e961efdca6a5100098746f8/master/w_2560%2Cc_limit/space-human-body-backchhannel.jpg", MessageType: "/IMAGES", SendBy: "user2", Timestamp: "03-10-2021_05:30:50"},
-    // ]
+    const location = useLocation()
+    const networkName = location.pathname.split('/')[1]
+
+
 
     const [imgLogs, setImgLogs] = useState([])
 
@@ -27,7 +23,7 @@ const PicLogs = () => {
     const [mainLog, setMainLog] = useState(defaultImg)
 
     const getRealtimeData = () => {
-        const unsub = onSnapshot(collection(db, 'Networks', "Test Network", 'Main Logs'), (snap) => {
+        const unsub = onSnapshot(collection(db, 'Networks', networkName, 'Main Logs'), (snap) => {
             const allLogsVar = snap.docs.map(doc => ({id: doc.id, ...doc.data()}))
             const imgLogsVar = allLogsVar.filter(log => log.MessageType === '/IMAGES')
             setImgLogs(imgLogsVar)

@@ -5,6 +5,7 @@ import { doc, onSnapshot, collection, setDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from "firebase/auth"
 import { db, auth } from '../../Config/firebase'
 import datetimeFormat from '../../Utilities/datetime'
+import { useLocation } from 'react-router-dom'
 
 
 const output = 'This is Apollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:15am'
@@ -12,6 +13,9 @@ const output = 'This is Apollo/Saturn Launch Control. Were in a built-in hold at
 
 
 const MyLogs = () => {
+
+    const location = useLocation()
+    const networkName = location.pathname.split('/')[1]
 
     const [myLogs, setMyLogs] = useState([])
     const [name, setName] = useState('')
@@ -38,7 +42,7 @@ const MyLogs = () => {
         });
     }
     const getRealtimeData = () => {
-        const unsub = onSnapshot(collection(db, 'Networks', "Test Network", 'Main Logs'), (snap) => {
+        const unsub = onSnapshot(collection(db, 'Networks', networkName, 'Main Logs'), (snap) => {
             const allLogsVar = snap.docs.map(doc => ({id: doc.id, ...doc.data()}))
             const myLogsVar = allLogsVar.filter(log => (log.id.split('_')[2]===user) && (log.MessageType!=='/IMAGES'))
             const users = snap.docs.map(doc => doc.id.split('_')[2])
@@ -58,7 +62,7 @@ const MyLogs = () => {
             MessageType: type,
             Timestamp: datetimeFormat(new Date())
         }
-        const docRef = doc(db, "Networks", "Test Network", "Main Logs", `${docData.Timestamp}_${name}`);
+        const docRef = doc(db, "Networks", networkName, "Main Logs", `${docData.Timestamp}_${name}`);
         await setDoc(docRef, docData);
     }
     const updateLog = async(mssg_var, type_var, date_var) => {
@@ -73,7 +77,7 @@ const MyLogs = () => {
             Message: mssg,
             MessageType: type
         }
-        const docRef = doc(db, "Networks", "Test Network", "Main Logs", `${date}_${name}`);
+        const docRef = doc(db, "Networks", networkName, "Main Logs", `${date}_${name}`);
         await setDoc(docRef, docData, {merge:true});
     }
     const onTypeChange = e => setType(e.target.value)
