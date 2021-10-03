@@ -8,7 +8,7 @@ import threading
 
 app = Flask(__name__)
 
-creden = credentials.Certificate('key.json')
+creden = credentials.Certificate('lunarops4-firebase-adminsdk-key.json')
 firebase_admin.initialize_app(creden)
 
 def listing_official(NetworkName,uid):
