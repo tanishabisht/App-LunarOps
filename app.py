@@ -26,7 +26,7 @@ def listing_official(NetworkName,uid):
             u"Timestamp":date_time,
             u"SendBy":u"SYSTEM",
             u"MessageType":u"/OUTPUT",
-            u"Message": u"[SYSTEM] -=>>> User: [" + str(temp_dict[uid]['SendBy']) + u"]; ID: [" + str(uid) + u"]; Message: [" + str(temp_dict[uid]['Message']) + u"]; Listed Under OFFICIAL LOGS"
+            u"Message": u"[SYSTEM] -=>>> User: [" + str(temp_dict[uid]['SendBy']) + u"]; ID: [" + str(uid) + u"]; Listed Under OFFICIAL LOGS"
         }
         data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(date_time + u"_SYSTEM").set(data)
     return val
@@ -79,7 +79,8 @@ def tag_message(NetworkName,uid):
     data_base = firestore.client()
     value = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").document(uid).get()    
     val_dict = value.to_dict()
-    message = val_dict['Message']
+    mess = (str(val_dict['Message'])).split('>>>')
+    message = mess[0]
     print("TAG: ",message)
     tag_list = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").stream()
     for tag in tag_list:
@@ -88,7 +89,7 @@ def tag_message(NetworkName,uid):
         }
         print(temp_dict)
         if message == "@" + str(tag.id):
-            temp_dict[tag.id]['Message'] = u"[SYSTEM] -=>>> [" + str(val_dict['SendBy']) + u"] TAGGED [" + str(temp_dict[tag.id]['SendBy']) + u"]; ID: [" + str(tag.id) + "]; Message: [" + str(temp_dict[tag.id]['Message']) + u"]"
+            temp_dict[tag.id]['Message'] = u"[SYSTEM] -=>>> [" + str(val_dict['SendBy']) + u"] TAGGED [" + str(temp_dict[tag.id]['SendBy']) + u"]; ID: [" + str(tag.id) + u"]"
             print("===>>>",temp_dict)
             date = str(strftime("%d-%m-%Y"))
             time = str(strftime("%H:%M:%S"))
@@ -101,7 +102,8 @@ def tag_user(NetworkName,uid):
     data_base = firestore.client()
     value = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").document(uid).get()    
     val_dict = value.to_dict()
-    message = val_dict['Message']
+    mess = (str(val_dict['Message'])).split('>>>')
+    message = mess[0]
     print("TAG: ",message)
     tag_list = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").stream()
     for tag in tag_list:
