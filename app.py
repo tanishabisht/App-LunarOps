@@ -169,7 +169,7 @@ def message_add():
 @app.route('/web-out-log/<string:net>/<string:dat_time_user_id>', methods=['GET','POST'])
 def web_out_log(net,date_time_user_id):
     if request.method == 'POST':
-        netw = net.split(',')
+        netw = net.split('%')
         network = ' '.join(netw)
         try:
             start = time.perf_counter()
@@ -199,7 +199,7 @@ def web_out_log(net,date_time_user_id):
 @app.route('/app-img-log/<string:network>/<string:dat_time_user_id>', methods=['GET','POST'])
 def app_img_log(net,date_time_user_id):
     if request.method == 'POST':
-        netw = net.split(',')
+        netw = net.split('%')
         network = ' '.join(netw)
         try:
             start = time.perf_counter()
