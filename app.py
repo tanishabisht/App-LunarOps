@@ -18,7 +18,6 @@ def listing_official(NetworkName,uid):
     temp_dict = {
         uid: (urgent.to_dict())
     }
-    print(temp_dict)
 
     if temp_dict[uid]['MessageType'] == "/OFFICIAL":
         date_time = str(strftime("%d-%m-%Y_%H:%M:%S",localtime()))
@@ -38,8 +37,6 @@ def listing_images(NetworkName,uid):
     temp_dict = {
         uid: (urgent.to_dict())
     }
-    print(temp_dict)
-
     if temp_dict[uid]['MessageType'] == "/IMAGES":
         date_time = str(strftime("%d-%m-%Y_%H:%M:%S",localtime()))
         data = {
@@ -61,7 +58,6 @@ def sort_command(NetworkName,uid):
     print(temp_dict)
     if temp_dict[uid]['MessageType'] == "/COMMAND":
         # temp_dict[uid]['Message'] = u"[COMMAND] -=> " + temp_dict[uid]['Message']
-        print("===>>>",temp_dict)
         # data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(uid).set(temp_dict)
         date_time = str(strftime("%d-%m-%Y_%H:%M:%S",localtime()))
         data = {
@@ -81,20 +77,22 @@ def tag_message(NetworkName,uid):
     val_dict = value.to_dict()
     mess = (str(val_dict['Message'])).split('>>>')
     message = mess[0]
-    print("TAG: ",message)
     tag_list = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").stream()
     for tag in tag_list:
         temp_dict = {
-            tag.to_dict()
+            tag.id : (tag.to_dict())
         }
-        print(temp_dict)
         if message == "@" + str(tag.id):
-            temp_dict[tag.id]['Message'] = u"[SYSTEM] -=>>> [" + str(val_dict['SendBy']) + u"] TAGGED [" + str(temp_dict[tag.id]['SendBy']) + u"]; ID: [" + str(tag.id) + u"]"
-            print("===>>>",temp_dict)
             date = str(strftime("%d-%m-%Y"))
             time = str(strftime("%H:%M:%S"))
             date_time_ = '_'.join([date,time])
-            data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(date_time_ + u"_SYSTEM").set(temp_dict)
+            data = {
+                u"Timestamp":date_time_,
+                u"SendBy":u"SYSTEM",
+                u"MessageType":u"/OUTPUT",
+                u"Message": u"[SYSTEM] -=>>> [" + str(val_dict['SendBy']) + u"] TAGGED [" + str(temp_dict[tag.id]['SendBy']) + u"]; ID: [" + str(tag.id) + u"]"
+            }
+            data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(date_time_ + u"_SYSTEM").set(data)
     return val
 
 def tag_user(NetworkName,uid):
@@ -108,16 +106,20 @@ def tag_user(NetworkName,uid):
     tag_list = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").stream()
     for tag in tag_list:
         temp_dict = {
-            tag.to_dict()
+            tag.id : (tag.to_dict())
         }
         print(temp_dict)
         if message == "@" + temp_dict[tag.id]['SendBy']:
-            temp_dict[tag.id]['Message'] = u"[SYSTEM] -=>>> [" + str(val_dict['SendBy']) + u"] TAGGED USER [" + str(temp_dict[tag.id]['SendBy']) + u"]"
-            print("===>>>",temp_dict)
             date = str(strftime("%d-%m-%Y"))
             time = str(strftime("%H:%M:%S"))
             date_time_ = '_'.join([date,time])
-            data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(date_time_ + u"_SYSTEM").set(temp_dict)
+            data = {
+                u"Timestamp":date_time_,
+                u"SendBy":u"SYSTEM",
+                u"MessageType":u"/OUTPUT",
+                u"Message": u"[SYSTEM] -=>>> [" + str(val_dict['SendBy']) + u"] TAGGED USER [" + str(temp_dict[tag.id]['SendBy']) + u"]"
+            }
+            data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(date_time_ + u"_SYSTEM").set(data)
             break
     return val
 
