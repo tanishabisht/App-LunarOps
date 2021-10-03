@@ -30,7 +30,7 @@
 }
 .LogoutBtn {
     background-color: transparent;
-    color: green;
+    color: #00dd00;
     border: 0px;
 }
 .LogoutBtn:hover {
@@ -45,6 +45,7 @@
 .About {
     display: flex;
     align-items: center;
+    margin-bottom: 1rem;
 }
 
 .Logo {
@@ -61,5 +62,13 @@
     color: #fff;
     line-height: 1;
     flex: none;
-    margin-bottom: 6px;
+}
+
+.DateTimeStamp {
+    font-family: michroma,sans-serif;
+    font-size: 0.8rem;
+    color: #00dd00;
+}
+.DateTimeStamp > span {
+    margin-right: 1rem;
 }

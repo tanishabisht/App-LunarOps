@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import classes from './SingleNetwork.module.css'
-import { MyLog } from '../../Components'
+import { MyLog, OutputCard } from '../../Components'
 import { doc, onSnapshot, collection, setDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from "firebase/auth"
 import { db, auth } from '../../Config/firebase'
@@ -8,7 +8,7 @@ import datetimeFormat from '../../Utilities/datetime'
 import { useLocation } from 'react-router-dom'
 
 
-const output = 'This is Apollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:15am'
+const output = 'This is Apollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:1s is Apollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 45am'
 
 
 
@@ -89,6 +89,13 @@ const MyLogs = () => {
         setUser(e.target.textContent)
     }
 
+    const mssgssgs = [
+        'img elements must have an alt prop, either with meaningful text, or an empty string',
+        'img elements must have an alt prop, either with meaningful text, or an empty string',
+        'img elements must have an alt prop, either with meaningful text, or an empty string',
+        'img elements must have an alt prop, either with meaningful text, or an empty string',
+        'img elements must have an alt prop, either with meaningful text, or an empty string',
+    ]
 
 
     return (
@@ -106,14 +113,14 @@ const MyLogs = () => {
 
             <div className={classes.SecondContainer}>
                 <div className={classes.MembersContainer}>
-                    <h2>NETWORK MEMBERS</h2>
+                    <h2>Network Members</h2>
                     <div className={classes.MemberList}>
                         {users.map(e => <p onClick={onChangeUser}>{e}</p>)}
                     </div>
                 </div>
                 <div className={classes.OutputContainer}>
                     <h2>Output</h2>
-                    <p>{output}</p>
+                    <p>{mssgssgs.map(m => <OutputCard mssg={m} />)}</p>
                 </div>
             </div>
            

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Log } from '../../Components'
+import { Log, OutputCard } from '../../Components'
 import classes from './SingleNetwork.module.css'
 import { doc, onSnapshot, collection, setDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from "firebase/auth"
@@ -77,6 +77,13 @@ const NetworkLogs = () => {
     const onTypeChange = e => setType(e.target.value)
     const onMssgChange = e => setMssg(e.target.value)
 
+    const mssgssgs = [
+        'img elements must have an alt prop, either with meaningful text, or an empty string',
+        'img elements must have an alt prop, either with meaningful text, or an empty string',
+        'img elements must have an alt prop, either with meaningful text, or an empty string',
+        'img elements must have an alt prop, either with meaningful text, or an empty string',
+        'img elements must have an alt prop, either with meaningful text, or an empty string',
+    ]
 
 
     return (
@@ -95,7 +102,7 @@ const NetworkLogs = () => {
             <div className={classes.SecondContainer}>
                 <div className={classes.AllOutputContainer}>
                     <h2>Output</h2>
-                    <p>{output}</p>
+                    <p>{mssgssgs.map(m => <OutputCard mssg={m} />)}</p>
                 </div>
             </div>
            

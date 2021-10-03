@@ -40,48 +40,60 @@
 
 /* SECOND COLUMN */
 .OutputContainer, .MembersContainer {
-    border: 2px solid green;
+    border: 2px solid #00dd00;
     border-radius: 1rem;
-    padding: 2rem;
-    height: 45%;
+    padding: 5px 10px;
+    height: 75%;
     color: #666;
 }
 .OutputContainer h2, .MembersContainer h2, .AllOutputContainer h2 {
-    border-bottom: 2px solid green;
-    color: green;
-    line-height: 3rem;
-    margin-bottom: 2rem;
+    border-bottom: 1px solid #00dd00;
+    color: #00dd00;
+    line-height: 2rem;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 .OutputContainer p {
-    height: 65%;
+    height: 90%;
     overflow-y: scroll;
+    font-family: 'Inconsolata', monospace;
 }
 
 .AllOutputContainer {
-    border: 2px solid green;
+    border: 2px solid #00dd00;
     border-radius: 1rem;
-    padding: 2rem;
+    padding: 1rem;
     height: 100%;
     color: #666;
 }
 .AllOutputContainer p {
-    height: 85%;
+    height: 92%;
     overflow-y: scroll;
+    font-family: 'Inconsolata', monospace;
 }
 
 .MembersContainer {
-    margin-bottom: 2rem;
-    height: 50%;
+    margin-bottom: 1rem;
+    height: 21%;
 }
 .MembersContainer p:hover {
-    color: green;
+    color: #00dd00;
     cursor: pointer;
 }
 
 .MemberList {
-    height: 75%;
+    height: 65%;
     overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+}
+.MemberList p {
+    margin: 5px;
+    border: 1px solid green;
+    padding: 0px 10px;
+    font-family: 'Inconsolata', monospace;
+    max-height: 1.7rem;
 }
 
 
@@ -146,5 +158,5 @@
 .UserInfo {
     display: flex;
     justify-content: space-between;
-    color: green;
+    color: #00dd00;
 }

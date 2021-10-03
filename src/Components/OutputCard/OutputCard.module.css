@@ -1,0 +1,14 @@
+.Container {
+    padding: 5px;
+    text-align: justify;
+    color: #ddd;
+    border-bottom: 1px solid #333;
+}
+.Container:hover {
+    background-color: #111;
+    cursor: pointer;
+}
+
+.Text {
+    margin: 0px;
+}

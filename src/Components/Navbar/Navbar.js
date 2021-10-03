@@ -11,6 +11,7 @@ const Navbar = () => {
     const isMenu = location.pathname==='/networks' ? false : true
     const networkName = location.pathname.split('/')[1]
 
+
     const onSignOut = () => {
         signOut(auth).then(() => {
             history.push('/login')
@@ -29,12 +30,26 @@ const Navbar = () => {
     // }
     // useEffect(getUserHandler, [])
 
+    var [date,setDate] = useState(new Date());
+    useEffect(() => {
+        var timer = setInterval(()=>setDate(new Date()), 1000 )
+        return function cleanup() {
+            clearInterval(timer)
+        }
+    });
+
     return (
         <div className={classes.Container}>
 
             <div className={classes.About}>
                 <div className={classes.Logo}></div>
-                <div className={classes.Heading}>LUNAR OPS</div>
+                <div>
+                    <div className={classes.Heading}>LUNAR OPS</div>
+                    <span className={classes.DateTimeStamp}>
+                        <span>{date.toLocaleDateString()}</span>
+                        <span>{date.toLocaleTimeString()}</span>
+                    </span>
+                </div>
             </div>
 
             <div style={isMenu===true ? null : {visibility:'hidden'}}>
