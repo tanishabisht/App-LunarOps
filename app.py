@@ -85,7 +85,7 @@ def tag_message(NetworkName,uid):
     tag_list = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").stream()
     for tag in tag_list:
         temp_dict = {
-            tag.id : (tag.to_dict())
+            tag.to_dict()
         }
         print(temp_dict)
         if message == "@" + str(tag.id):
@@ -108,7 +108,7 @@ def tag_user(NetworkName,uid):
     tag_list = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").stream()
     for tag in tag_list:
         temp_dict = {
-            tag.id : (tag.to_dict())
+            tag.to_dict()
         }
         print(temp_dict)
         if message == "@" + temp_dict[tag.id]['SendBy']:
