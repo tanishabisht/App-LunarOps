@@ -8,7 +8,7 @@ const NetworkCard = ({name}) => {
     const deleteHandler = async() => {
         await deleteDoc(doc(db, "Networks", name))
     }
-
+    
     
     return (
         <div className={classes.Container}>

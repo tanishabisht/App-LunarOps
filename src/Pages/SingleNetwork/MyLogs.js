@@ -7,17 +7,6 @@ import { db, auth } from '../../Config/firebase'
 import datetimeFormat from '../../Utilities/datetime'
 
 
-
-const members = [
-    'Ganesha Ji',
-    'Ganesha Ji',
-    'Ganesha Ji',
-    'Tanisha Bisht',
-    'Prakhar Kaushik',
-    'Arnav Roy',
-    'Tanisha Bisht',
-    'Prakhar Kaushik'
-]
 const output = 'This is Apollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:15am'
 
 
@@ -26,6 +15,8 @@ const MyLogs = () => {
 
     const [myLogs, setMyLogs] = useState([])
     const [name, setName] = useState('')
+    const [user, setUser] = useState('')
+    const [users, setUsers] = useState([])
     
     const [type, setType] = useState('')
     const [mssg, setMssg] = useState('')
@@ -38,6 +29,7 @@ const MyLogs = () => {
     const getUser = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                setUser(user.email.split('@')[0])
                 setName(user.email.split('@')[0])
                 console.log(user.email.split('@')[0])
             } else {
@@ -48,15 +40,16 @@ const MyLogs = () => {
     const getRealtimeData = () => {
         const unsub = onSnapshot(collection(db, 'Networks', "Test Network", 'Main Logs'), (snap) => {
             const allLogsVar = snap.docs.map(doc => ({id: doc.id, ...doc.data()}))
-            const myLogsVar = allLogsVar.filter(log => log.id.split('_')[2]===name)
+            const myLogsVar = allLogsVar.filter(log => (log.id.split('_')[2]===user) && (log.MessageType!=='/IMAGES'))
+            const users = snap.docs.map(doc => doc.id.split('_')[2])
             setMyLogs(myLogsVar)
+            setUsers([...new Set(users)])
         })
         return () => unsub()
     }
 
     useEffect(getUser, [])  
     useEffect(getRealtimeData, [myLogs])
-
 
     const addLog = async() => {
         const docData = {
@@ -87,13 +80,19 @@ const MyLogs = () => {
     const onMssgChange = e => setMssg(e.target.value)
 
 
+    const onChangeUser = (e) => {
+        console.log(e.target.textContent)
+        setUser(e.target.textContent)
+    }
+
+
 
     return (
         <div className={classes.Container}>
 
             <div className={classes.FirstContainer}>
                 <div className={classes.LogsContainer}>
-                    {myLogs.map(e => <MyLog info={e} updateLog={updateLog} />)}
+                    {myLogs.map(e => <MyLog info={e} user={name} updateLog={updateLog} />)}
                 </div>
                 <input value={type} onChange={onTypeChange} type="text" name="type" className={classes.Input} style={{width:'10%'}} placeholder='Type' />
                 <input value={mssg} onChange={onMssgChange} type="text" name="text" className={classes.Input} style={{width:'80%'}} placeholder='Enter your log' />
@@ -105,7 +104,7 @@ const MyLogs = () => {
                 <div className={classes.MembersContainer}>
                     <h2>NETWORK MEMBERS</h2>
                     <div className={classes.MemberList}>
-                        {members.map(e => <p>{e}</p>)}
+                        {users.map(e => <p onClick={onChangeUser}>{e}</p>)}
                     </div>
                 </div>
                 <div className={classes.OutputContainer}>

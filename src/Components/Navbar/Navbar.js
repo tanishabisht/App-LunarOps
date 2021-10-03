@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom'
 import classes from './Navbar.module.css'
 import { useLocation, useHistory } from 'react-router-dom'
-import { auth, getUser } from '../../Config/firebase'
-import { signOut } from "firebase/auth";
+import { auth } from '../../Config/firebase'
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { useState, useEffect } from 'react'
 
 
 const Navbar = () => {
@@ -18,7 +19,16 @@ const Navbar = () => {
             console.log('Couldnt sign out')
         });
     }
-    
+
+    const [name, setName] = useState('')
+    // const getUserHandler = () => {
+    //     onAuthStateChanged(auth, (user) => {
+    //     if (user) setName(user.email.split('@')[0])
+    //         else console.log('No user fetched') 
+    //     });
+    // }
+    // useEffect(getUserHandler, [])
+
     return (
         <div className={classes.Container}>
 
@@ -37,7 +47,7 @@ const Navbar = () => {
             </div>
 
             <div style={{display:'flex', alignItems:'start'}}>
-                <p className={classes.Username}>{getUser() || 'Username'}</p>
+                <p className={classes.Username}>{name || 'Username'}</p>
                 <form><button className={classes.LogoutBtn} onClick={onSignOut}>Logout</button></form>                
             </div>
 

@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAfPvR33qZ6N2ojX5VXDinzyXILBl7o_cc",
-  authDomain: "lunarops2-fac46.firebaseapp.com",
-  projectId: "lunarops2-fac46",
-  storageBucket: "lunarops2-fac46.appspot.com",
-  messagingSenderId: "823516646303",
-  appId: "1:823516646303:web:dadf0ea47f84c765df8baa"
+  apiKey: "AIzaSyAYwSFwgaq-BkJYJsSGxzCqxhqKumAybr8",
+  authDomain: "lunarops3-c9109.firebaseapp.com",
+  projectId: "lunarops3-c9109",
+  storageBucket: "lunarops3-c9109.appspot.com",
+  messagingSenderId: "721215952742",
+  appId: "1:721215952742:web:bae48800821088f8375aa7"
 };
 
 const getUserHandler = () => {

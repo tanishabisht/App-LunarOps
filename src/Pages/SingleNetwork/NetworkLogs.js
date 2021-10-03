@@ -7,17 +7,7 @@ import { db, auth } from '../../Config/firebase'
 import datetimeFormat from '../../Utilities/datetime'
 
 
-const members = [
-    'Ganesha Ji',
-    'Ganesha Ji',
-    'Ganesha Ji',
-    'Tanisha Bisht',
-    'Prakhar Kaushik',
-    'Arnav Roy',
-    'Tanisha Bisht',
-    'Prakhar Kaushik'
-]
-const output = 'This is Apollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:15am'
+const output = 'This is Apollo/Saturn Launch Control. Were inApollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:15am a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:15am Apollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. WeApollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:15amre awakended ... just about an hour ago, at 4:15am'
 
 
 const NetworkLogs = () => {
@@ -35,8 +25,8 @@ const NetworkLogs = () => {
 
     const getRealtimeData = () => {
         const unsub = onSnapshot(collection(db, 'Networks', "Test Network", 'Main Logs'), (snap) => {
-            console.log(snap.docs.map(doc => ({id: doc.id, ...doc.data()})));
-            setAllLogs(snap.docs.map(doc => ({id: doc.id, ...doc.data()})))
+            const allLogsVar = snap.docs.map(doc => ({id: doc.id, ...doc.data()}));
+            setAllLogs(allLogsVar.filter(log => log.MessageType!=='/IMAGES'))
         })
         return () => unsub()
     }
@@ -99,13 +89,7 @@ const NetworkLogs = () => {
             </div>
 
             <div className={classes.SecondContainer}>
-                <div className={classes.MembersContainer}>
-                    <h2>NETWORK MEMBERS</h2>
-                    <div className={classes.MemberList}>
-                        {members.map(e => <p>{e}</p>)}
-                    </div>
-                </div>
-                <div className={classes.OutputContainer}>
+                <div className={classes.AllOutputContainer}>
                     <h2>Output</h2>
                     <p>{output}</p>
                 </div>

@@ -26,9 +26,9 @@ const MyOfficialLogs = () => {
         console.log('offLogsVar', 'skjhdfksjdfhksjdfh')
         const unsub = onSnapshot(collection(db, 'Networks', "Test Network", 'Main Logs'), (snap) => {
             const allLogsVar = snap.docs.map(doc => ({id: doc.id, ...doc.data()}))
-            const offLogsVar = allLogsVar.filter(log => (log.MessageType==='/OFFICIAL') && (log.SendBy===name))
+            const offLogsVar = allLogsVar.filter(log => ((log.MessageType==='/OFFICIAL') && (log.SendBy===name)))
             setMyOffLogs(offLogsVar)
-            console.log(offLogsVar)
+            console.log('sssssssssssss', name, offLogsVar)
         })
         return () => unsub()
     }

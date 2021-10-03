@@ -46,7 +46,7 @@
     height: 45%;
     color: #666;
 }
-.OutputContainer h2, .MembersContainer h2 {
+.OutputContainer h2, .MembersContainer h2, .AllOutputContainer h2 {
     border-bottom: 2px solid green;
     color: green;
     line-height: 3rem;
@@ -55,6 +55,18 @@
 
 .OutputContainer p {
     height: 65%;
+    overflow-y: scroll;
+}
+
+.AllOutputContainer {
+    border: 2px solid green;
+    border-radius: 1rem;
+    padding: 2rem;
+    height: 100%;
+    color: #666;
+}
+.AllOutputContainer p {
+    height: 85%;
     overflow-y: scroll;
 }
 
