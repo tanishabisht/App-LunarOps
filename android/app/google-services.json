@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1094008664794",
-    "project_id": "lunarops4",
-    "storage_bucket": "lunarops4.appspot.com"
+    "project_number": "383925347773",
+    "project_id": "lunarops5",
+    "storage_bucket": "lunarops5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1094008664794:android:9f245b0a743181a258abe3",
+        "mobilesdk_app_id": "1:383925347773:android:157b4241c4dcd920beded4",
         "android_client_info": {
           "package_name": "com.example.uploadlunarops"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1094008664794-ma86ps90i8d6q1bojtemtu4j4vnesclc.apps.googleusercontent.com",
+          "client_id": "383925347773-6101evvr5gb22bhqh9gm635s1glokip9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAoDPyfH6LyPlJohmEaZip7SQqF2fQ05_c"
+          "current_key": "AIzaSyAUeWM0Jzc-9a7V9XVplZicYhjdN8_q7KA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1094008664794-ma86ps90i8d6q1bojtemtu4j4vnesclc.apps.googleusercontent.com",
+              "client_id": "383925347773-6101evvr5gb22bhqh9gm635s1glokip9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
