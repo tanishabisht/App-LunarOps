@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, url_for
+from flask_cors import CORS
 from time import localtime, strftime
 import time
 import firebase_admin
@@ -7,6 +8,7 @@ from firebase_admin import firestore
 import threading
 
 app = Flask(__name__)
+CORS(app, support_credentials=True)
 
 creden = credentials.Certificate('lunarops4-firebase-key.json')
 firebase_admin.initialize_app(creden)
