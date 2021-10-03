@@ -164,7 +164,7 @@ def message_add():
 
         duration = str(round(finish-start, 2)) + " Seconds"
 
-        return render_template('index.html', res =1, dur = "Updated Output Logs.... Process Time: " + duration)
+        return render_template('index.html', res =1, durat = "Updated Output Logs.... Process Time: " + duration)
 
 @app.route('/web-out-log/<string:network>/<string:dat_time_user_id>', methods=['GET','POST'])
 def web_out_log(network,date_time_user_id):
