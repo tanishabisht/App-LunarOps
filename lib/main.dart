@@ -1,19 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:uploadlunarops/Screens/signup_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:uploadlunarops/Screens/Networks/network_list_Screen.dart';
+import 'package:uploadlunarops/Screens/SignUp/signup_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
 
-  // This widget is the root of your application.
+class _AppState extends State<App> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Upload LunarOps',
-      home: SignupOptionScreen(),
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return MaterialApp(
+            title: 'Upload Channel',
+            home: SignupOptionScreen(),
+          );
+        }
+        return const Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

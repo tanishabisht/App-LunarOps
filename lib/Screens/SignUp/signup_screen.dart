@@ -11,42 +11,35 @@ class SignupOptionScreen extends StatefulWidget {
 
 class _SignupOptionScreenState extends State<SignupOptionScreen> {
   var passwordNode = FocusNode();
-  var confirmPasswordNode = FocusNode();
-  String? userEmail, userPassword, confirmPassword;
+  String? userEmail, userPassword;
   final GlobalKey<FormState> _formKey = GlobalKey();
   var emailController = TextEditingController();
   var passController = TextEditingController();
-  var confirmPassController = TextEditingController();
 
   void _SignUp() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     _formKey.currentState!.save();
-    if (userPassword == confirmPassword) {
-      try {
-        await EmailAuth().signup(
-            email: userEmail!, password: userPassword!, context: context);
-        emailController.clear();
-        passController.clear();
-        confirmPassController.clear();
-      } on Exception catch (error) {
-        String error_message = '';
-        if (error.toString().contains('EMAIL_EXISTS')) {
-          error_message = 'This Email Already Exists';
-        }
-        if (error.toString().contains('INVALID_EMAIL')) {
-          error_message = 'The email Entered is invalid';
-        }
-        if (error.toString().contains('USER_DISABLED')) {
-          error_message = 'The User has been Disabled';
-        }
-        dialogBox(error_message);
-      } catch (genral_error) {
-        dialogBox('Unforseen Error has ocurred');
+    try {
+      await EmailAuth()
+          .login(email: userEmail!, password: userPassword!, context: context);
+      emailController.clear();
+      passController.clear();
+    } on Exception catch (error) {
+      String error_message = '';
+      if (error.toString().contains('EMAIL_EXISTS')) {
+        error_message = 'This Email Already Exists';
       }
-    } else {
-      dialogBox("Password and ConfirmPassword is not same");
+      if (error.toString().contains('INVALID_EMAIL')) {
+        error_message = 'The email Entered is invalid';
+      }
+      if (error.toString().contains('USER_DISABLED')) {
+        error_message = 'The User has been Disabled';
+      }
+      dialogBox(error_message);
+    } catch (genral_error) {
+      dialogBox('Unforseen Error has ocurred');
     }
   }
 
@@ -54,9 +47,8 @@ class _SignupOptionScreenState extends State<SignupOptionScreen> {
   void dispose() {
     emailController.dispose();
     passController.dispose();
-    confirmPassController.dispose();
     passwordNode.dispose();
-    confirmPasswordNode.dispose();
+
     super.dispose();
   }
 
@@ -99,7 +91,7 @@ class _SignupOptionScreenState extends State<SignupOptionScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           const Text(
-                            'Sign Up',
+                            'Log In',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -159,10 +151,7 @@ class _SignupOptionScreenState extends State<SignupOptionScreen> {
                             onSaved: (val) {
                               userPassword = val!;
                             },
-                            onFieldSubmitted: (_) {
-                              FocusScope.of(context)
-                                  .requestFocus(confirmPasswordNode);
-                            },
+                            onFieldSubmitted: (_) {},
                             obscureText: true,
                             decoration: InputDecoration(
                               hintStyle: const TextStyle(
@@ -180,44 +169,12 @@ class _SignupOptionScreenState extends State<SignupOptionScreen> {
                           const SizedBox(
                             height: 20,
                           ),
-                          TextFormField(
-                            controller: confirmPassController,
-                            focusNode: confirmPasswordNode,
-                            obscureText: true,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                            validator: (value) {
-                              if (value.toString().isEmpty) {
-                                return 'This field cannot be empty';
-                              }
-                            },
-                            onSaved: (val) {
-                              confirmPassword = val!;
-                            },
-                            decoration: InputDecoration(
-                              hintStyle: const TextStyle(
-                                  color: Colors.black54,
-                                  fontWeight: FontWeight.bold),
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(15)),
-                              hintText: 'Confirm Password',
-                            ),
-                            textInputAction: TextInputAction.next,
-                            onFieldSubmitted: (_) {},
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
                           TextButton(
                               onPressed: () {
                                 _SignUp();
                               },
                               child: const Text(
-                                'Sign-Up',
+                                'Log In',
                                 style: TextStyle(color: Colors.white),
                               ),
                               style: TextButton.styleFrom(
