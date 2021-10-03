@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Widgets/video_player.dart';
+import 'SignUp/Widgets/video_player.dart';
 
 class LoggedInScreen extends StatelessWidget {
   static const routeName = '/LoggedInScreen';
