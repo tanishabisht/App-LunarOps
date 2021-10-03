@@ -166,11 +166,13 @@ def message_add():
 
         return render_template('index.html', res =1, durat = "Updated Output Logs.... Process Time: " + duration)
 
-@app.route('/web-out-log/<string:net>/<string:dat_time_user_id>', methods=['GET','POST'])
-def web_out_log(net,date_time_user_id):
+@app.route('/web-out-log/<string:net>/<string:uid>', methods=['GET','POST'])
+def web_out_log(net,uid):
     if request.method == 'POST':
         netw = net.split('%')
         network = ' '.join(netw)
+        uid_ = uid.split('%')
+        date_time_user_id = ' '.join(uid_)
         try:
             start = time.perf_counter()
             t1 = threading.Thread(target=listing_official, args=(network,date_time_user_id))
@@ -196,11 +198,13 @@ def web_out_log(net,date_time_user_id):
     else:
         return "Error: Wrong Call Method"
 
-@app.route('/app-img-log/<string:network>/<string:dat_time_user_id>', methods=['GET','POST'])
-def app_img_log(net,date_time_user_id):
+@app.route('/app-img-log/<string:network>/<string:uid>', methods=['GET','POST'])
+def app_img_log(net,uid):
     if request.method == 'POST':
         netw = net.split('%')
         network = ' '.join(netw)
+        uid_ = uid.split('%')
+        date_time_user_id = ' '.join(uid_)
         try:
             start = time.perf_counter()
             listing_images(network,date_time_user_id)
