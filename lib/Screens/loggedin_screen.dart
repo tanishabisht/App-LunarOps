@@ -6,7 +6,8 @@ class LoggedInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: VideoApp(vidPath: 'assets/bv.mp4')),
+      backgroundColor: Colors.transparent,
+      body: SafeArea(child: VideoApp(vidPath: 'assets/bvide.mp4')),
     );
   }
 }

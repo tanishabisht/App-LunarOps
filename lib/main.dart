@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Lunar Ops',
-      home: const SignupOptionScreen(),
+      home: SignupOptionScreen(),
       routes: {
         LoggedInScreen.routeName: (context) => LoggedInScreen(),
       },

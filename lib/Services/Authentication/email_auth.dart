@@ -2,15 +2,19 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:lunarops/Screens/loggedin_screen.dart';
 
 class EmailAuth {
   String? _token;
   DateTime? _expiryDate;
   String? _userId;
 
-  Future<void> signup(String email, String password) async {
+  Future<void> signup(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
     final url = Uri.parse(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDttjNKuUs-R0bFhTrBF6Vp6udiXYpS8Dc');
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAfPvR33qZ6N2ojX5VXDinzyXILBl7o_cc');
     final response = await http.post(url,
         body: json.encode(
             {'email': email, 'password': password, 'returnSecureToken': true}));
@@ -19,7 +23,11 @@ class EmailAuth {
     if (res['error'] != null) {
       throw Exception(res['error']);
     }
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Welcome to Moon...')));
+
     _token = res['idToken'];
     _userId = res['localId'];
+    Navigator.pushNamed(context, LoggedInScreen.routeName);
   }
 }
