@@ -1,13 +1,123 @@
 from flask import Flask, request, render_template, url_for
-from time import strftime
+from time import localtime, strftime
+import time
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
+import threading
 
 app = Flask(__name__)
 
-creden = credentials.Certificate('lunarops-bb7f7-firebase-adminsdk-key.json')
+creden = credentials.Certificate('key.json')
 firebase_admin.initialize_app(creden)
+
+def listing_official(NetworkName,uid):
+    val = "Official Logs"
+    data_base = firestore.client()
+    urgent = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").document(uid).get()
+    temp_dict = {
+        uid: (urgent.to_dict())
+    }
+    print(temp_dict)
+
+    if temp_dict[uid]['MessageType'] == "/OFFICIAL":
+        date_time = str(strftime("%d-%m-%Y_%H:%M:%S",localtime()))
+        data = {
+            u"Timestamp":date_time,
+            u"SendBy":u"SYSTEM",
+            u"MessageType":u"/OUTPUT",
+            u"Message": u"[SYSTEM] -=>>> User: [" + str(temp_dict[uid]['SendBy']) + u"]; ID: [" + str(uid) + u"]; Message: [" + str(temp_dict[uid]['Message']) + u"]; Listed Under OFFICIAL LOGS"
+        }
+        data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(date_time + u"_SYSTEM").set(data)
+    return val
+
+def listing_images(NetworkName,uid):
+    val = "Image Logs"
+    data_base = firestore.client()
+    urgent = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").document(uid).get()
+    temp_dict = {
+        uid: (urgent.to_dict())
+    }
+    print(temp_dict)
+
+    if temp_dict[uid]['MessageType'] == "/IMAGES":
+        date_time = str(strftime("%d-%m-%Y_%H:%M:%S",localtime()))
+        data = {
+            u"Timestamp":date_time,
+            u"SendBy":u"SYSTEM",
+            u"MessageType":u"/OUTPUT",
+            u"Message": u"[SYSTEM] -=>>> User: [" + str(temp_dict[uid]['SendBy']) + u"]; ID: ["  + str(uid) + u"]; uploaded and IMAGE"
+        }
+        data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(date_time + u"_SYSTEM").set(data)
+    return val
+
+def sort_command(NetworkName,uid):
+    val = "Output Logs"
+    data_base = firestore.client()
+    command = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").document(uid).get()    
+    temp_dict = {
+        command.id : (command.to_dict())
+    }
+    print(temp_dict)
+    if temp_dict[uid]['MessageType'] == "/COMMAND":
+        # temp_dict[uid]['Message'] = u"[COMMAND] -=> " + temp_dict[uid]['Message']
+        print("===>>>",temp_dict)
+        # data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(uid).set(temp_dict)
+        date_time = str(strftime("%d-%m-%Y_%H:%M:%S",localtime()))
+        data = {
+            u"Timestamp":date_time,
+            u"SendBy":u"SYSTEM",
+            u"MessageType":u"/OUTPUT",
+            u"Message": u"[SYSTEM] -=>>> User [" + str(temp_dict[uid]['SendBy']) + u"] initiated [COMMAND]  ~ " + str(temp_dict[uid]['Message']) + ' ~  EXECUTED...'
+        }
+        data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(date_time + u"_SYSTEM").set(data)
+    return val
+
+
+def tag_message(NetworkName,uid):
+    val = "Tag"
+    data_base = firestore.client()
+    value = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").document(uid).get()    
+    val_dict = value.to_dict()
+    message = val_dict['Message']
+    print("TAG: ",message)
+    tag_list = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").stream()
+    for tag in tag_list:
+        temp_dict = {
+            tag.id : (tag.to_dict())
+        }
+        print(temp_dict)
+        if message == "@" + str(tag.id):
+            temp_dict[tag.id]['Message'] = u"[SYSTEM] -=>>> [" + str(val_dict['SendBy']) + u"] TAGGED [" + str(temp_dict[tag.id]['SendBy']) + u"]; ID: [" + str(tag.id) + "]; Message: [" + str(temp_dict[tag.id]['Message']) + u"]"
+            print("===>>>",temp_dict)
+            date = str(strftime("%d-%m-%Y"))
+            time = str(strftime("%H:%M:%S"))
+            date_time_ = '_'.join([date,time])
+            data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(date_time_ + u"_SYSTEM").set(temp_dict)
+    return val
+
+def tag_user(NetworkName,uid):
+    val = "Tag"
+    data_base = firestore.client()
+    value = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").document(uid).get()    
+    val_dict = value.to_dict()
+    message = val_dict['Message']
+    print("TAG: ",message)
+    tag_list = data_base.collection(u"Networks").document(NetworkName).collection(u"Main Logs").stream()
+    for tag in tag_list:
+        temp_dict = {
+            tag.id : (tag.to_dict())
+        }
+        print(temp_dict)
+        if message == "@" + temp_dict[tag.id]['SendBy']:
+            temp_dict[tag.id]['Message'] = u"[SYSTEM] -=>>> [" + str(val_dict['SendBy']) + u"] TAGGED USER [" + str(temp_dict[tag.id]['SendBy']) + u"]"
+            print("===>>>",temp_dict)
+            date = str(strftime("%d-%m-%Y"))
+            time = str(strftime("%H:%M:%S"))
+            date_time_ = '_'.join([date,time])
+            data_base.collection(u"Networks").document(NetworkName).collection(u"Output Logs").document(date_time_ + u"_SYSTEM").set(temp_dict)
+            break
+    return val
 
 @app.route('/', methods=['GET','POST'])
 def home():
@@ -15,147 +125,88 @@ def home():
 
 @app.route('/message-add', methods=['GET','POST'])
 def message_add():
-
     if request.method == 'POST':
         network = request.form.get("network")
-        loglist = request.form.get("loglist")
         user = request.form.get("user")
         log_type = request.form.get("logtype")
         message = request.form.get("message")
-        isof = request.form.get('isofficial')
 
-        date = str(strftime("%d-%m-%Y"))
-        time = str(strftime("%H:%M:%S"))
-        date_time_user_id = '_'.join([date,time,user])
-
+        date_time = str(strftime("%d-%m-%Y_%H:%M:%S"))
+        date_time_user_id = '_'.join([date_time,user])
         data_base = firestore.client()
         data = {
-            u"Date":date,
-            u"Time":time,
+            u"Timestamp":date_time,
             u"SendBy":user,
             u"MessageType":"/" + log_type,
-            u"Message":message,
-            u"IsOfficial":isof
+            u"Message":message
         }
+        data_base.collection(u"Networks").document(network).collection(u"Main Logs").document(date_time_user_id).set(data)
 
-        data_base.collection(u"Networks").document(network).collection(loglist).document(date_time_user_id).set(data)
-        
-        return render_template('index.html', res = 1)
+        start = time.perf_counter()
 
-@app.route('/sort-urgent', methods=['GET','POST'])
-def sort_urgent():
+        t1 = threading.Thread(target=listing_official, args=(network,date_time_user_id))
+        t2 = threading.Thread(target=listing_images, args=(network,date_time_user_id))
+        t3 = threading.Thread(target=sort_command, args=(network,date_time_user_id))
+        t4 = threading.Thread(target=tag_message, args=(network,date_time_user_id))
+        t5 = threading.Thread(target=tag_user, args=(network,date_time_user_id))
+        t1.start()
+        t2.start()
+        t3.start()
+        t4.start()
+        t5.start()
+        t1.join()
+        t2.join()
+        t3.join()
+        t4.join()
+        t5.join()
 
+        finish = time.perf_counter()
+
+        duration = str(round(finish-start, 2)) + " Seconds"
+
+        return render_template('index.html', res =1, dur = "Updated Output Logs.... Process Time: " + duration)
+
+@app.route('/web-out-log/<string:network>/<string:dat_time_user_id>', methods=['GET','POST'])
+def web_out_log(network,date_time_user_id):
     if request.method == 'POST':
-        val = "Urgent Logs"
-        data_base = firestore.client()
-        
-        urgent_list = data_base.collection(u"Networks").document(u"Test Network").collection(u"Main Logs").stream()
-        
-        for urgent in urgent_list:
-            temp_dict = {
-                urgent.id : (urgent.to_dict())
-            }
-            print(temp_dict)
-            if temp_dict[urgent.id]['MessageType'] == "/URGENT":
-                print("===>>>",temp_dict)
-                data_base.collection(u"Networks").document(u"Test Network").collection(u"Urgent Logs").document(urgent.id).set(temp_dict)
-        return render_template('index.html', qual1 = 1, logtype = val)
+        try:
+            start = time.perf_counter()
+            t1 = threading.Thread(target=listing_official, args=(network,date_time_user_id))
+            t2 = threading.Thread(target=listing_images, args=(network,date_time_user_id))
+            t3 = threading.Thread(target=sort_command, args=(network,date_time_user_id))
+            t4 = threading.Thread(target=tag_message, args=(network,date_time_user_id))
+            t5 = threading.Thread(target=tag_user, args=(network,date_time_user_id))
+            t1.start()
+            t2.start()
+            t3.start()
+            t4.start()
+            t5.start()
+            t1.join()
+            t2.join()
+            t3.join()
+            t4.join()
+            t5.join()
+            finish = time.perf_counter()
+            duration = str(round(finish-start, 2)) + " Seconds"
+            return "Updated Output Logs.... Process Time: " + duration
+        except:
+            return "Error: Cannot Acces or Log Data to Firestore"
+    else:
+        return "Error: Wrong Call Method"
 
-@app.route('/sort-request', methods=['GET','POST'])
-def sort_request():
-
+@app.route('/app-img-log/<string:network>/<string:dat_time_user_id>', methods=['GET','POST'])
+def app_img_log(network,date_time_user_id):
     if request.method == 'POST':
-
-        data_base = firestore.client()
-        val = "Request Logs"
-        urgent_list = data_base.collection(u"Networks").document(u"Test Network").collection(u"Main Logs").stream()
-        
-        for urgent in urgent_list:    
-            temp_dict = {
-                urgent.id : (urgent.to_dict())
-            }
-            print(temp_dict)
-
-            if temp_dict[urgent.id]['MessageType'] == "/REQUEST":
-                print("===>>>",temp_dict)
-                data_base.collection(u"Networks").document(u"Test Network").collection(u"Request Logs").document(urgent.id).set(temp_dict)
-        return render_template('index.html', qual2 = 1, logtype = val)
-
-@app.route('/sort-official', methods=['GET','POST'])
-def sort_official():
-
-    if request.method == 'POST':
-        val = "Official Logs"
-        data_base = firestore.client()
-        
-        urgent_list = data_base.collection(u"Networks").document(u"Test Network").collection(u"Main Logs").stream()
-        
-        for urgent in urgent_list:    
-            temp_dict = {
-                urgent.id : (urgent.to_dict())
-            }
-            print(temp_dict)
-
-            if temp_dict[urgent.id]['MessageType'] == "/OFFICIAL":
-                print("===>>>",temp_dict)
-                data_base.collection(u"Networks").document(u"Test Network").collection(u"Official Logs").document(urgent.id).set(temp_dict)
-        return render_template('index.html', qual3 = 1, logtype = val)
-
-@app.route('/sort-family', methods=['GET','POST'])
-def sort_family():
-
-    if request.method == 'POST':
-        val = "Family Logs"
-        data_base = firestore.client()
-        
-        urgent_list = data_base.collection(u"Networks").document(u"Test Network").collection(u"Main Logs").stream()
-        
-        for urgent in urgent_list:    
-            temp_dict = {
-                urgent.id : (urgent.to_dict())
-            }
-            print(temp_dict)
-
-            if temp_dict[urgent.id]['MessageType'] == "/FAMILY":
-                print("===>>>",temp_dict)
-                data_base.collection(u"Networks").document(u"Test Network").collection(u"Family Logs").document(urgent.id).set(temp_dict)
-        return render_template('index.html', qual4 = 1, logtype = val)
-
-@app.route('/sort-command', methods=['GET','POST'])
-def sort_command():
-
-    if request.method == 'POST':
-        val = "Output Logs"
-        data_base = firestore.client()
-        
-        urgent_list = data_base.collection(u"Networks").document(u"Test Network").collection(u"Main Logs").stream()
-        
-        for urgent in urgent_list:    
-            temp_dict = {
-                urgent.id : (urgent.to_dict())
-            }
-            print(temp_dict)
-
-            if temp_dict[urgent.id]['MessageType'] == "/COMMAND":
-                print("===>>>",temp_dict)
-                data_base.collection(u"Networks").document(u"Test Network").collection(u"Output Logs").document(urgent.id).set(temp_dict)
-
-                date = str(strftime("%d-%m-%Y"))
-                time = str(strftime("%H:%M:%S"))
-                date_time_ = '_'.join([date,time])
-
-                data = {
-                    u"Date":date,
-                    u"Time":time,
-                    u"SendBy":u"SYSTEM",
-                    u"MessageType":u"/OUTPUT",
-                    u"Message":temp_dict[urgent.id]['SendBy'] + u"'s COMMAND  ~ " + temp_dict[urgent.id]['Message'] + ' ~  EXECUTED...',
-                    u"IsOfficial":u"True"
-                }
-                data_base.collection(u"Networks").document(u"Test Network").collection(u"Output Logs").document(date_time_ + u"_SYSTEM").set(data)
-
-        return render_template('index.html', qual5 = 1, logtype = val)
-
+        try:
+            start = time.perf_counter()
+            listing_images(network,date_time_user_id)
+            finish = time.perf_counter()
+            duration = str(round(finish-start, 2)) + " Seconds"
+            return "Updated Output Logs.... Process Time: " + duration
+        except:
+            return "Error: Cannot Acces or Log Data to Firestore"
+    else:
+        return "Error: Wrong Call Method"
 
 if __name__ == "__main__":
     app.run(debug=True)
