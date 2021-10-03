@@ -10,9 +10,9 @@ const Log = ({info, updateLog, user}) => {
             <div className={classes.Date}>
                 <p>{Timestamp}</p>
                 <p>{SendBy}</p>
-                {MessageType==='/LOG' && SendBy===user && <span onClick={() => updateLog(Message, MessageType, Timestamp)}><i class="fas fa-edit"></i></span>}
             </div>
             <p className={classes.Text}>{Message}</p>
+            {MessageType==='/LOG' && SendBy===user && <span onClick={() => updateLog(Message, MessageType, Timestamp)}><i class="fas fa-edit"></i></span>}
         </div>
     );
 }

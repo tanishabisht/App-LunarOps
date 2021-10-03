@@ -18,15 +18,10 @@ Application that can immediately and seamlessly integrate console log informatio
   - [x] Editing their own console logs
   - [x] Logs visible to people in the same network
   - [x] Meta data: message|img|audio|video, date-time stamp, author, entry topic
-  - [x] View inter-mixed logs of the network arranged by time, entry-topic, author, etc
+  - [x] View inter-mixed logs of the network arranged by time, author, etc
   - [x] Enable no future edit option on their logs - official written record for that user's profile
   - [x] tagging other log enties in the network
-  - [x] COMMAND to view a particular log
-
-## Novelty
-- SECURITY
-- 
-
+  - [x] COMMANDS
 
 ## Team Mates
 `Tanisha` `Prakhar` `Arnav`

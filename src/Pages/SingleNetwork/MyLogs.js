@@ -1,14 +1,11 @@
 import { useState, useEffect } from 'react'
 import classes from './SingleNetwork.module.css'
-import { MyLog, OutputCard } from '../../Components'
+import { MyLog } from '../../Components'
 import { doc, onSnapshot, collection, setDoc } from 'firebase/firestore'
 import { onAuthStateChanged } from "firebase/auth"
 import { db, auth } from '../../Config/firebase'
 import datetimeFormat from '../../Utilities/datetime'
 import { useLocation } from 'react-router-dom'
-
-
-const output = 'This is Apollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:1s is Apollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 45am'
 
 
 
@@ -64,6 +61,8 @@ const MyLogs = () => {
         }
         const docRef = doc(db, "Networks", networkName, "Main Logs", `${docData.Timestamp}_${name}`);
         await setDoc(docRef, docData);
+        setType('')
+        setMssg('')
     }
     const updateLog = async(mssg_var, type_var, date_var) => {
         setMssg(mssg_var)
@@ -79,6 +78,8 @@ const MyLogs = () => {
         }
         const docRef = doc(db, "Networks", networkName, "Main Logs", `${date}_${name}`);
         await setDoc(docRef, docData, {merge:true});
+        setType('')
+        setMssg('')
     }
     const onTypeChange = e => setType(e.target.value)
     const onMssgChange = e => setMssg(e.target.value)
@@ -88,15 +89,6 @@ const MyLogs = () => {
         console.log(e.target.textContent)
         setUser(e.target.textContent)
     }
-
-    const mssgssgs = [
-        'img elements must have an alt prop, either with meaningful text, or an empty string',
-        'img elements must have an alt prop, either with meaningful text, or an empty string',
-        'img elements must have an alt prop, either with meaningful text, or an empty string',
-        'img elements must have an alt prop, either with meaningful text, or an empty string',
-        'img elements must have an alt prop, either with meaningful text, or an empty string',
-    ]
-
 
     return (
         <div className={classes.Container}>
@@ -117,10 +109,6 @@ const MyLogs = () => {
                     <div className={classes.MemberList}>
                         {users.map(e => <p onClick={onChangeUser}>{e}</p>)}
                     </div>
-                </div>
-                <div className={classes.OutputContainer}>
-                    <h2>Output</h2>
-                    <p>{mssgssgs.map(m => <OutputCard mssg={m} />)}</p>
                 </div>
             </div>
            

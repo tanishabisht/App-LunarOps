@@ -53,12 +53,12 @@ const Navbar = () => {
             </div>
 
             <div style={isMenu===true ? null : {visibility:'hidden'}}>
-                <NavLink activeClassName={classes.Active} className={classes.Item} to="/networks">SEE ALL NETWORKS</NavLink>
-                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/my_logs`}>MY LOGS</NavLink>
-                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/all_logs`}>ALL LOGS</NavLink>
-                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/my_official_logs`}>MY OFF LOGS</NavLink>
-                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/official_logs`}>OFF LOGS</NavLink>
-                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/picture_logs`}>PICTURE LOGS</NavLink>
+                <NavLink activeClassName={classes.Active} className={classes.Item} to="/networks">See All Networks</NavLink>
+                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/my_logs`}>User Logs</NavLink>
+                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/all_logs`}>All Logs</NavLink>
+                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/my_official_logs`}>My Official Logs</NavLink>
+                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/official_logs`}>Official Logs</NavLink>
+                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/picture_logs`}>Picture Logs</NavLink>
             </div>
 
             <div style={{display:'flex', alignItems:'start'}}>

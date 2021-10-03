@@ -6,9 +6,7 @@ import { onAuthStateChanged } from "firebase/auth"
 import { db, auth } from '../../Config/firebase'
 import datetimeFormat from '../../Utilities/datetime'
 import { useLocation } from 'react-router-dom'
-
-
-const output = 'This is Apollo/Saturn Launch Control. Were inApollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:15am a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:15am Apollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. WeApollo/Saturn Launch Control. Were in a built-in hold at T-minus 3 hours, 30 minutes, and holding. We expect to resume our countdown at about 48 minutes from this time at 6:02am, Eastern Daylight Time. All elements of the Apollo 11 countdown are GO at this time. Were heading for a planned liftoff on the Apollo 11 mission at 9:32am Eastern Daylight. The prime crew for Apollo 11 is Neil Armstrong, Michael Collins, and Edwin Aldrin. Were awakended ... just about an hour ago, at 4:15amre awakended ... just about an hour ago, at 4:15am'
+import axios from 'axios'
 
 
 const NetworkLogs = () => {
@@ -17,6 +15,7 @@ const NetworkLogs = () => {
     const networkName = location.pathname.split('/')[1]
 
     const [allLogs, setAllLogs] = useState([])
+    const [outputLogs, setOutputLogs] = useState([])
 
     const [name, setName] = useState('')
     const [type, setType] = useState('')
@@ -34,6 +33,13 @@ const NetworkLogs = () => {
         })
         return () => unsub()
     }
+    const getOutputLogs = () => {
+        const unsub = onSnapshot(collection(db, 'Networks', networkName, 'Output Logs'), (snap) => {
+            const allLogsVar = snap.docs.map(doc => (doc.data().Message));
+            setOutputLogs(allLogsVar)
+        })
+        return () => unsub()
+    }
     const getUser = () => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -45,6 +51,7 @@ const NetworkLogs = () => {
         });
     }
     useEffect(getRealtimeData, [])  
+    useEffect(getOutputLogs, [])  
     useEffect(getUser, [])  
 
 
@@ -58,6 +65,9 @@ const NetworkLogs = () => {
         }
         const docRef = doc(db, "Networks", networkName, "Main Logs", `${docData.Timestamp}_${name}`);
         await setDoc(docRef, docData);
+        axios.post(`https://nshlog.herokuapp.com/web-out-log/${networkName}/${docData.Timestamp}_${name}`)
+        setType('')
+        setMssg('')
     }
     const updateLog = async(mssg_var, type_var, date_var) => {
         setMssg(mssg_var)
@@ -73,23 +83,17 @@ const NetworkLogs = () => {
         }
         const docRef = doc(db, "Networks", networkName, "Main Logs", `${date}_${name}`);
         await setDoc(docRef, docData, {merge:true});
+        setType('')
+        setMssg('')
     }
     const onTypeChange = e => setType(e.target.value)
     const onMssgChange = e => setMssg(e.target.value)
-
-    const mssgssgs = [
-        'img elements must have an alt prop, either with meaningful text, or an empty string',
-        'img elements must have an alt prop, either with meaningful text, or an empty string',
-        'img elements must have an alt prop, either with meaningful text, or an empty string',
-        'img elements must have an alt prop, either with meaningful text, or an empty string',
-        'img elements must have an alt prop, either with meaningful text, or an empty string',
-    ]
 
 
     return (
         <div className={classes.Container}>
 
-            <div className={classes.FirstContainer}>
+            <div className={classes.FirstContainer} style={{flex:'2'}}>
                 <div className={classes.LogsContainer}>
                     {allLogs.map(e => <Log info={e} updateLog={updateLog} user={name} />)}
                 </div>
@@ -102,7 +106,7 @@ const NetworkLogs = () => {
             <div className={classes.SecondContainer}>
                 <div className={classes.AllOutputContainer}>
                     <h2>Output</h2>
-                    <p>{mssgssgs.map(m => <OutputCard mssg={m} />)}</p>
+                    <p>{outputLogs.map(m => <OutputCard mssg={m} />)}</p>
                 </div>
             </div>
            
