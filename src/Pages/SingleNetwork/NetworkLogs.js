@@ -77,9 +77,10 @@ const NetworkLogs = () => {
     }
     const updateLogHandler = async() => {
         setIsUpdate(false)
+        console.log(mssg, type)
         const docData = {
             Message: mssg,
-            MessageType: + type
+            MessageType: type
         }
         const docRef = doc(db, "Networks", networkName, "Main Logs", `${date}_${name}`);
         await setDoc(docRef, docData, {merge:true});

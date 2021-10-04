@@ -56,7 +56,7 @@ const Navbar = () => {
                 <NavLink activeClassName={classes.Active} className={classes.Item} to="/networks">See All Networks</NavLink>
                 <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/my_logs`}>User Logs</NavLink>
                 <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/all_logs`}>All Logs</NavLink>
-                <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/my_official_logs`}>My Official Logs</NavLink>
+                {/* <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/my_official_logs`}>My Official Logs</NavLink> */}
                 <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/official_logs`}>Official Logs</NavLink>
                 <NavLink activeClassName={classes.Active} className={classes.Item} to={`/${networkName}/picture_logs`}>Picture Logs</NavLink>
             </div>
