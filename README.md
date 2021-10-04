@@ -1,6 +1,7 @@
 # Lunar Surface Operations: Real-Time Collaboration
 As astronauts collect data on the Moon, NASA and the worldwide scientific community will be documenting and reviewing the information in real time.
-
+Video Link: https://cutt.ly/7EJsZkx
+PPT Link: https://cutt.ly/vEJsHLn
 
 ## Current Implementation
 - Each flight control team member creates and maintains a console log to record the information necessary to support his/her job duties. 
@@ -24,4 +25,4 @@ Application that can immediately and seamlessly integrate console log informatio
   - [x] COMMANDS
 
 ## Team Mates
-`Tanisha` `Prakhar` `Arnav`
+`Tanisha` [`Prakhar Kaushik`](https://github.com/PrakharKaushik213) [`Arnav S Roy`](https://github.com/VenomousAtom)
