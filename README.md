@@ -1,7 +1,7 @@
 # Lunar Surface Operations: Real-Time Collaboration
 As astronauts collect data on the Moon, NASA and the worldwide scientific community will be documenting and reviewing the information in real time.
-Video Link: https://cutt.ly/7EJsZkx
-PPT Link: https://cutt.ly/vEJsHLn
+- Video Link: https://youtu.be/QTZh2H_qV10
+- PPT Link: https://cutt.ly/vEJsHLn
 
 ## Current Implementation
 - Each flight control team member creates and maintains a console log to record the information necessary to support his/her job duties. 
