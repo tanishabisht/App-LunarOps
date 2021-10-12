@@ -1,6 +1,6 @@
 # Lunar Surface Operations: Real-Time Collaboration
 As astronauts collect data on the Moon, NASA and the worldwide scientific community will be documenting and reviewing the information in real time.
-- Video Link: https://youtu.be/QTZh2H_qV10
+- Video Link: https://youtu.be/DtDYor2o5R8
 - PPT Link: https://cutt.ly/vEJsHLn
 
 ## Current Implementation
