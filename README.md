@@ -11,6 +11,7 @@ As astronauts collect data on the Moon, NASA and the worldwide scientific commun
 ## Objective
 Application that can immediately and seamlessly integrate console log information of many users (at least 100+ users on the same network).
 
+<img src='proj_img.png' style="width:100%;height:auto;max-width:500px" />
 
 ## Features
 - Authentication
