@@ -1,29 +1,35 @@
-# Lunar Surface Operations: Real-Time Collaboration
-As astronauts collect data on the Moon, NASA and the worldwide scientific community will be documenting and reviewing the information in real time.
-- Video Link: https://vimeo.com/894586938?share=copy
-- PPT Link: https://cutt.ly/vEJsHLn
+# App - LunarOps: Lunar Surface Operations - Realtime Collaboration
+
+In an effort to enhance the documentation and review process of data collected on the Moon, NASA and the global scientific community are moving towards a system where information is documented and reviewed in real time.
+
+![Lunar Operations Demo](/lunar.gif)
+
+[**View Presentation**](https://docs.google.com/presentation/d/1z9sVrHxx0Tj2et9uzyLw7AVPV8SFRTdY/edit?usp=sharing&ouid=116258337050070476444&rtpof=true&sd=true)
 
 ## Current Implementation
-- Each flight control team member creates and maintains a console log to record the information necessary to support his/her job duties. 
-- This console log becomes part of the official record of the mission.
-- There is no way for a flight controller to simultaneously see the live creation of logs by others or to synchronize multiple people's logs to compare notes with different authors during or after a mission.
+During missions, each flight control team member is responsible for creating and maintaining a log that supports their specific job duties. These logs form the official mission record. However, the current system does not allow flight controllers to view each other’s logs in real time or synchronize logs for comparison during or after missions.
 
-## Objective
-Application that can immediately and seamlessly integrate console log information of many users (at least 100+ users on the same network).
+## Project Objective
+Develop an application capable of integrating and displaying console log information from multiple users (100+ users on the same network) instantly and seamlessly.
 
-<img src='proj_img.png' style="width:100%;height:auto;max-width:500px" />
+![Project Interface](proj_img.png)
 
 ## Features
-- Authentication
-- Multiple simultaneous users within a network
-  - [x] Creating their own console logs
-  - [x] Editing their own console logs
-  - [x] Logs visible to people in the same network
-  - [x] Meta data: message|img|audio|video, date-time stamp, author, entry topic
-  - [x] View inter-mixed logs of the network arranged by time, author, etc
-  - [x] Enable no future edit option on their logs - official written record for that user's profile
-  - [x] tagging other log enties in the network
-  - [x] COMMANDS
+- **Authentication**: Secure access to the application.
+- **Real-Time Collaboration**: Allows multiple users to:
+  - Create and edit their console logs.
+  - View logs made by others within the same network.
+- **Enhanced Log Details**:
+  - Logs can include messages, images, audio, and video entries.
+  - Each entry is timestamped and includes author information and the entry topic.
+- **Organized Viewing Options**: 
+  - Logs can be viewed and arranged by time, author, and other metadata.
+- **Record Integrity**:
+  - Users can lock their logs to prevent future edits, ensuring the log serves as an official record.
+- **Interactive Features**:
+  - Users can tag other log entries within the network.
+  - Support for custom commands within the logs.
 
-## Team Mates
+
+## Team
 `Tanisha` [`Prakhar Kaushik`](https://github.com/PrakharKaushik213) [`Arnav S Roy`](https://github.com/VenomousAtom)
