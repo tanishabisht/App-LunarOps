@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/LunarOps/static/css/main.ae430de1.chunk.css",
-    "main.js": "/LunarOps/static/js/main.e9c95673.chunk.js",
-    "main.js.map": "/LunarOps/static/js/main.e9c95673.chunk.js.map",
-    "runtime-main.js": "/LunarOps/static/js/runtime-main.456e630d.js",
-    "runtime-main.js.map": "/LunarOps/static/js/runtime-main.456e630d.js.map",
-    "static/js/2.bbc0da7f.chunk.js": "/LunarOps/static/js/2.bbc0da7f.chunk.js",
-    "static/js/2.bbc0da7f.chunk.js.map": "/LunarOps/static/js/2.bbc0da7f.chunk.js.map",
-    "index.html": "/LunarOps/index.html",
-    "static/css/main.ae430de1.chunk.css.map": "/LunarOps/static/css/main.ae430de1.chunk.css.map",
-    "static/js/2.bbc0da7f.chunk.js.LICENSE.txt": "/LunarOps/static/js/2.bbc0da7f.chunk.js.LICENSE.txt",
-    "static/media/Auth.module.css": "/LunarOps/static/media/logo.75b91ed4.png"
+    "main.css": "/App-LunarOps/static/css/main.98c875d0.chunk.css",
+    "main.js": "/App-LunarOps/static/js/main.e69018d2.chunk.js",
+    "main.js.map": "/App-LunarOps/static/js/main.e69018d2.chunk.js.map",
+    "runtime-main.js": "/App-LunarOps/static/js/runtime-main.e7a2fdad.js",
+    "runtime-main.js.map": "/App-LunarOps/static/js/runtime-main.e7a2fdad.js.map",
+    "static/js/2.4cc69bfd.chunk.js": "/App-LunarOps/static/js/2.4cc69bfd.chunk.js",
+    "static/js/2.4cc69bfd.chunk.js.map": "/App-LunarOps/static/js/2.4cc69bfd.chunk.js.map",
+    "index.html": "/App-LunarOps/index.html",
+    "static/css/main.98c875d0.chunk.css.map": "/App-LunarOps/static/css/main.98c875d0.chunk.css.map",
+    "static/js/2.4cc69bfd.chunk.js.LICENSE.txt": "/App-LunarOps/static/js/2.4cc69bfd.chunk.js.LICENSE.txt",
+    "static/media/Auth.module.css": "/App-LunarOps/static/media/logo.75b91ed4.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.456e630d.js",
-    "static/js/2.bbc0da7f.chunk.js",
-    "static/css/main.ae430de1.chunk.css",
-    "static/js/main.e9c95673.chunk.js"
+    "static/js/runtime-main.e7a2fdad.js",
+    "static/js/2.4cc69bfd.chunk.js",
+    "static/css/main.98c875d0.chunk.css",
+    "static/js/main.e69018d2.chunk.js"
   ]
 }
